@@ -30,6 +30,10 @@ Please refer to the [SheetJS](https://sheetjs.com/) documentation for core API r
 
 ## 🗒 Style API
 
+### Cell Style Demo
+
+[Browser Demo](https://github.com/gitbrent/xlsx-js-style/tree/master/demos/browser)
+
 ### Cell Style Example
 
 ```js
@@ -49,7 +53,7 @@ Cell styles are specified by a style object that roughly parallels the OpenXML s
 top-level attributes: `fill`, `font`, `numFmt`, `alignment`, and `border`.
 
 | Style Attribute | Sub Attributes | Values                                                                                        |
-| :-------------- | :------------- | :-------------------------------------------------------------------------------------------- |
+| --------------- | -------------- | --------------------------------------------------------------------------------------------- |
 | fill            | patternType    | `"solid"` or `"none"`                                                                         |
 |                 | fgColor        | `COLOR_SPEC`                                                                                  |
 |                 | bgColor        | `COLOR_SPEC`                                                                                  |
@@ -126,7 +130,3 @@ Borders for merged areas are specified for each cell within the merged area. So 
 
 Please consult the attached LICENSE file for details. All rights not explicitly
 granted by the Apache 2.0 License are reserved by the Original Author.
-
-### Demo
-
-[Browser Demo](https://gitbrent.github.io/xlsx-js-style/demos/browser/index.html)
