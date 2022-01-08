@@ -53,7 +53,7 @@ Cell styles are specified by a style object that roughly parallels the OpenXML s
 top-level attributes: `fill`, `font`, `numFmt`, `alignment`, and `border`.
 
 | Style Attribute | Sub Attributes | Values                                                                                        |
-| --------------- | -------------- | --------------------------------------------------------------------------------------------- |
+| :-------------- | :------------- | :-------------------------------------------------------------------------------------------- |
 | fill            | patternType    | `"solid"` or `"none"`                                                                         |
 |                 | fgColor        | `COLOR_SPEC`                                                                                  |
 |                 | bgColor        | `COLOR_SPEC`                                                                                  |
