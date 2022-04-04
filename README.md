@@ -6,7 +6,7 @@ SheetJS with Style! Create Excel spreadsheets with basic styling options using J
 
 <p align="center">
   <a href="https://github.com/gitbrent/xlsx-js-style/">
-    <img alt="xlsx-js-style sheetjs styles" title="xlsx-js-style sheetjs styles" src="https://raw.githubusercontent.com/gitbrent/xlsx-js-style/demos/browser/images/readme_banner.png"/>
+    <img alt="xlsx-js-style sheetjs styles" title="xlsx-js-style sheetjs styles" src="https://github.com/gitbrent/xlsx-js-style/blob/7664a045cd8f96b6b1b92ad563babebb8d6e0b4a/demos/browser/images/readme_banner.png"/>
   </a>
 </p>
 <br/>
