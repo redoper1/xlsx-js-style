@@ -15,9 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Updated
 
--   `xlsx.js` updated to version "0.18.5"
--   typescript defs props all documented now
--   lots of updates to README
+-   `xlsx.js` updated to v0.18.5
+-   `jszip.js` updated to v3.7.1
+-   typescript defs props fully documented
+-   lots of updates to `README.md`
 
 ## [1.0.0] - 2021-01-25
 
