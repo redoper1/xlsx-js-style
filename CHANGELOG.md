@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2022-04-04
+
+### Added
+
+-   new node demo (./demos/node/)
+
+### Fixed
+
+-   Cannot find module './dist/cpexcel.js' [\#6](https://github.com/gitbrent/xlsx-js-style/issues/6) ([texiontech](https://github.com/texiontech))
+
 ## [1.1.0] - 2022-04-03
 
 ### Added
