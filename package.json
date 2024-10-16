@@ -1,6 +1,6 @@
 {
 	"name": "@redoper1/xlsx-js-style",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"author": "redoper1",
 	"description": "SheetJS Spreadsheet Community Edition plus Basic Cell Styles forked from gitbrent/xlsx-js-style",
 	"homepage": "https://github.com/redoper1/xlsx-js-style/",
