@@ -1,9 +1,9 @@
 {
-	"name": "xlsx-js-style",
+	"name": "@redoper1/xlsx-js-style",
 	"version": "1.2.1",
-	"author": "gitbrent",
-	"description": "SheetJS Spreadsheet Community Edition plus Basic Cell Styles",
-	"homepage": "https://github.com/gitbrent/xlsx-js-style/",
+	"author": "redoper1",
+	"description": "SheetJS Spreadsheet Community Edition plus Basic Cell Styles forked from gitbrent/xlsx-js-style",
+	"homepage": "https://github.com/redoper1/xlsx-js-style/",
 	"keywords": [
 		"excel",
 		"xls",
@@ -18,7 +18,7 @@
 		"sheetjs-style-v2"
 	],
 	"bin": {
-		"xlsx": "./bin/xlsx.njs"
+		"xlsx": "bin/xlsx.njs"
 	},
 	"main": "dist/xlsx.min.js",
 	"unpkg": "dist/xlsx.min.js",
@@ -60,7 +60,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/gitbrent/xlsx-js-style.git"
+		"url": "git://github.com/redoper1/xlsx-js-style.git"
 	},
 	"scripts": {
 		"ship": "gulp ship"
@@ -81,10 +81,13 @@
 		]
 	},
 	"bugs": {
-		"url": "https://github.com/gitbrent/xlsx-js-style/issues"
+		"url": "https://github.com/redoper1/xlsx-js-style/issues"
 	},
 	"license": "Apache-2.0",
 	"engines": {
 		"node": ">=0.8"
+	},
+	"directories": {
+		"test": "tests"
 	}
 }

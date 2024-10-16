@@ -4,9 +4,11 @@
 
 SheetJS with Style! Create Excel spreadsheets with basic styling options using JavaScript.
 
+Based on the [gitbrent/xlsx-js-style](https://github.com/gitbrent/xlsx-js-style).
+
 <p align="center">
-  <a href="https://github.com/gitbrent/xlsx-js-style/">
-    <img alt="xlsx-js-style sheetjs styles" title="xlsx-js-style sheetjs styles" src="https://github.com/gitbrent/xlsx-js-style/blob/7664a045cd8f96b6b1b92ad563babebb8d6e0b4a/demos/browser/images/readme_banner.png"/>
+  <a href="https://github.com/redoper1/xlsx-js-style/">
+    <img alt="xlsx-js-style sheetjs styles" title="xlsx-js-style sheetjs styles" src="https://github.com/redoper1/xlsx-js-style/blob/48ad46f7d349fed24ba4313ff1d9e53db52875bc/demos/browser/images/readme_banner.png"/>
   </a>
 </p>
 <br/>
@@ -19,7 +21,7 @@ SheetJS with Style! Create Excel spreadsheets with basic styling options using J
 Install [npm](https://www.npmjs.org/package/xlsx-js-style):
 
 ```sh
-npm install xlsx-js-style
+npm install @redoper1/xlsx-js-style
 ```
 
 Install browser:
@@ -31,7 +33,7 @@ Install browser:
 ## 🗒 Core API
 
 -   Refer to the [SheetJS](https://sheetjs.com/) documentation for core API reference
--   Current version of sheetjs used: **0.18.5**
+-   Current version of sheetjs used: **0.20.3**
 
 ## 🗒 Style API
 
@@ -128,18 +130,19 @@ Borders for merged areas are specified for each cell within the merged area. For
 
 ## 🙏 Thanks
 
-This project is a fork of [SheetJS/sheetjs](https://github.com/sheetjs/sheetjs) combined with code from
+This project is a fork of [gitbrent/xlsx-js-style](https://github.com/gitbrent/xlsx-js-style), which is a fork of [SheetJS/sheetjs](https://git.sheetjs.com/sheetjs/sheetjs/) combined with code from
 [sheetjs-style](https://www.npmjs.com/package/sheetjs-style) (by [ShanaMaid](https://github.com/ShanaMaid/))
 and [sheetjs-style-v2](https://www.npmjs.com/package/sheetjs-style-v2) (by [Raul Gonzalez](https://www.npmjs.com/~armandourbina)).
 
 All projects are under the Apache 2.0 License
 
--   [sheetjs](https://github.com/SheetJS/sheetjs)
+-   [xlsx-js-style](https://github.com/gitbrent/xlsx-js-style)
+-   [sheetjs](https://git.sheetjs.com/sheetjs/sheetjs/)
 -   [js-xlsx](https://github.com/protobi/js-xlsx)
 -   [sheetjs-style](https://www.npmjs.com/package/sheetjs-style)
 -   [sheetjs-style-v2](https://www.npmjs.com/package/sheetjs-style-v2)
 
 ## 🔖 License
 
-Please consult the attached [LICENSE](https://github.com/gitbrent/xlsx-js-style/blob/master/LICENSE) file for details. All rights not explicitly
+Please consult the attached [LICENSE](https://github.com/redoper1/xlsx-js-style/blob/master/LICENSE) file for details. All rights not explicitly
 granted by the Apache 2.0 License are reserved by the Original Author.
