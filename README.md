@@ -13,12 +13,12 @@ Based on the [gitbrent/xlsx-js-style](https://github.com/gitbrent/xlsx-js-style)
 </p>
 <br/>
 
-[![Known Vulnerabilities](https://snyk.io/test/npm/xlsx-js-style/badge.svg)](https://snyk.io/test/npm/xlsx-js-style) [![npm downloads](https://img.shields.io/npm/dm/xlsx-js-style.svg)](https://www.npmjs.com/package/xlsx-js-style)
-[![typescripts definitions](https://img.shields.io/npm/types/xlsx-js-style)](https://img.shields.io/npm/types/xlsx-js-style)
+[![Known Vulnerabilities](https://snyk.io/test/npm/@redoper1/xlsx-js-style/badge.svg)](https://snyk.io/test/npm/@redoper1/xlsx-js-style) [![npm downloads](https://img.shields.io/npm/dm/@redoper1/xlsx-js-style.svg)](https://www.npmjs.com/package/@redoper1/xlsx-js-style)
+[![typescripts definitions](https://img.shields.io/npm/types/xlsx-js-style)](https://img.shields.io/npm/types/@redoper1/xlsx-js-style)
 
 ## 🔌 Installation
 
-Install [npm](https://www.npmjs.org/package/xlsx-js-style):
+Install [npm](https://www.npmjs.org/package/@redoper1/xlsx-js-style):
 
 ```sh
 npm install @redoper1/xlsx-js-style

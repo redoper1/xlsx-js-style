@@ -1,6 +1,6 @@
 {
   "name": "xlsx-js-style",
-  "homepage": "https://github.com/gitbrent/xlsx-js-style",
+  "homepage": "https://github.com/redoper1/xlsx-js-style",
   "main": "dist/xlsx.min.js",
   "ignore": [
     "bin",
