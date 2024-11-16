@@ -1,6 +1,6 @@
 {
 	"name": "xlsx-js-style-demos-node",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"author": {
 		"name": "David Rychlý",
 		"url": "https://github.com/redoper1/"
@@ -9,7 +9,10 @@
 	"description": "Create Excel spreadsheets with basic styling options using JavaScript forked from gitbrent/xlsx-js-style",
 	"homepage": "https://gitbrent.github.io/xlsx-js-style/",
 	"scripts": {
-		"demo": "node demo.js"
+		"demo": "node demo.js",
+		"demo-debug": "node demo.js --debug",
+		"demo-esm": "node demo-esm.js",
+		"demo-esm-debug": "node demo-esm.js --debug"
 	},
 	"repository": {
 		"type": "git",
@@ -17,6 +20,6 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"xlsx-js-style": "^1.2.2"
+		"xlsx-js-style": "^1.2.3"
 	}
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@redoper1/xlsx-js-style",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"author": "redoper1",
 	"description": "SheetJS Spreadsheet Community Edition plus Basic Cell Styles forked from gitbrent/xlsx-js-style",
 	"homepage": "https://github.com/redoper1/xlsx-js-style/",
@@ -10,6 +10,11 @@
 		"xlsx",
 		"xlsb",
 		"xlsm",
+		"ods",
+		"csv",
+		"dbf",
+		"dif",
+		"sylk",
 		"office",
 		"spreadsheet",
 		"js-xlsx",
@@ -20,15 +25,62 @@
 	"bin": {
 		"xlsx": "bin/xlsx.njs"
 	},
-	"main": "dist/xlsx.min.js",
-	"unpkg": "dist/xlsx.min.js",
-	"jsdelivr": "dist/xlsx.min.js",
+	"main": "dist/xlsx.min.cjs",
+	"module": "dist/xlsx.min.mjs",
+	"unpkg": "dist/xlsx.min.cjs",
+	"jsdelivr": "dist/xlsx.min.cjs",
 	"files": [
 		"dist",
 		"libs",
 		"types"
 	],
 	"types": "types",
+	"exports": {
+		".": {
+			"import": "./dist/xlsx.min.mjs",
+			"require": "./dist/xlsx.min.cjs"
+		},
+		"./xlsx.min.js": {
+			"import": "./dist/xlsx.min.mjs",
+			"require": "./dist/xlsx.min.cjs"
+		},
+		"./xlsx.min.cjs": {
+			"import": "./dist/xlsx.min.cjs",
+			"require": "./dist/xlsx.min.cjs"
+		},
+		"./dist/xlsx.min.js": {
+			"import": "./dist/xlsx.min.mjs",
+			"require": "./dist/xlsx.min.cjs"
+		},
+		"./dist/xlsx.min.cjs": {
+			"import": "./dist/xlsx.min.cjs",
+			"require": "./dist/xlsx.min.cjs"
+		},
+		"./dist/xlsx.min.mjs": {
+			"import": "./dist/xlsx.min.mjs",
+			"require": "./dist/xlsx.min.cjs"
+		},
+		"./xlsx.js": {
+			"import": "./dist/xlsx.mjs",
+			"require": "./dist/xlsx.cjs"
+		},
+		"./xlsx.cjs": {
+			"import": "./dist/xlsx.cjs",
+			"require": "./dist/xlsx.cjs"
+		},
+		"./dist/xlsx.js": {
+			"import": "./dist/xlsx.mjs",
+			"require": "./dist/xlsx.cjs"
+		},
+		"./dist/xlsx.cjs": {
+			"import": "./dist/xlsx.cjs",
+			"require": "./dist/xlsx.cjs"
+		},
+		"./dist/xlsx.mjs": {
+			"import": "./dist/xlsx.mjs",
+			"require": "./dist/xlsx.cjs"
+		}
+	},
 	"browser": {
 		"buffer": false,
 		"crypto": false,
@@ -56,6 +108,7 @@
 		"gulp-insert": "^0.5.0",
 		"gulp-replace": "^1.1.3",
 		"gulp-sourcemaps": "^3.0.0",
+		"gulp-terser": "^2.1.0",
 		"gulp-uglify": "^3.0.2"
 	},
 	"repository": {
@@ -63,7 +116,7 @@
 		"url": "git://github.com/redoper1/xlsx-js-style.git"
 	},
 	"scripts": {
-		"ship": "gulp ship"
+		"ship": "gulp ship-full"
 	},
 	"config": {
 		"blanket": {
