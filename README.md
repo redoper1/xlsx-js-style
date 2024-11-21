@@ -27,7 +27,7 @@ npm install @redoper1/xlsx-js-style
 Install browser:
 
 ```html
-<script src="dist/xlsx.bundle.js"></script>
+<script src="dist/xlsx.min.cjs"></script>
 ```
 
 ## 🗒 Core API
