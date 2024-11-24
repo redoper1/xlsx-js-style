@@ -6,6 +6,9 @@
 /** Version string */
 export const version: string;
 
+/** Style version string [xlsx-js-style] */
+export const style_version: string;
+
 /** SSF Formatter Library */
 // export { SSF };
 export const SSF: any;
@@ -14,9 +17,9 @@ export const SSF: any;
 // export { CFB };
 export const CFB: any;
 
-/** ESM ONLY! Set internal `fs` instance */
+/** Set internal `fs` instance */
 export function set_fs(fs: any): void;
-/** ESM ONLY! Set internal codepage tables */
+/** Set internal codepage tables */
 export function set_cptable(cptable: any): void;
 
 /** NODE ONLY! Attempts to read filename and parse */
@@ -24,12 +27,12 @@ export function readFile(filename: string, opts?: ParsingOptions): WorkBook;
 /** Attempts to parse data */
 export function read(data: any, opts?: ParsingOptions): WorkBook;
 /** Attempts to write or download workbook data to file */
-export function writeFile(data: WorkBook, filename: string, opts?: WritingOptions): any;
+export function writeFile(data: WorkBook, filename: string, opts?: WritingOptions): void;
 /** Attempts to write or download workbook data to XLSX file */
-export function writeFileXLSX(data: WorkBook, filename: string, opts?: WritingOptions): any;
+export function writeFileXLSX(data: WorkBook, filename: string, opts?: WritingOptions): void;
 /** Attempts to write or download workbook data to file asynchronously */
 type CBFunc = () => void;
-export function writeFileAsync(filename: string, data: WorkBook, opts: WritingOptions | CBFunc, cb?: CBFunc): any;
+export function writeFileAsync(filename: string, data: WorkBook, opts: WritingOptions | CBFunc, cb?: CBFunc): void;
 /** Attempts to write the workbook data */
 export function write(data: WorkBook, opts: WritingOptions): any;
 /** Attempts to write the workbook data as XLSX */
@@ -139,12 +142,37 @@ export interface DateNFOption {
 	dateNF?: NumberFormat;
 }
 
-/** Options for read and readFile */
-export interface ParsingOptions extends CommonOptions {
-	/** Input data encoding */
-	type?: "base64" | "binary" | "buffer" | "file" | "array" | "string";
+export interface UTCOption {
+	/**
+	 * For plaintext formats, interpret ambiguous datetimes in UTC
+	 * If explicitly set to `false`, dates will be parsed in local time.
+	 *
+	 * The `true` option is consistent with spreadsheet application export.
+	 *
+	 * @default true
+	 */
+	UTC?: boolean;
+}
 
-	/** Default codepage */
+export interface DenseOption {
+	/** If true, generate dense-mode worksheets */
+	dense?: boolean;
+}
+
+/** Options for read and readFile */
+export interface ParsingOptions extends UTCOption, CommonOptions, DenseOption {
+	/** Input data encoding */
+	type?: 'base64' | 'binary' | 'buffer' | 'file' | 'array' | 'string';
+
+	/**
+	 * Default codepage for legacy files
+	 *
+	 * This requires encoding support to be loaded.  It is automatically loaded
+	 * in `xlsx.full.min.js` and in CommonJS / Extendscript, but an extra step
+	 * is required in React / Angular / Webpack ESM deployments.
+	 *
+	 * Check the relevant guide https://docs.sheetjs.com/docs/getting-started/
+	 */
 	codepage?: number;
 
 	/**
@@ -213,26 +241,26 @@ export interface ParsingOptions extends CommonOptions {
 	/** If true, plaintext parsing will not parse values */
 	raw?: boolean;
 
+	/** If true, ignore "dimensions" records and guess range using every cell */
+	nodim?: boolean;
+
 	/** If true, preserve _xlfn. prefixes in formula function names */
 	xlfn?: boolean;
 
-	dense?: boolean;
+	/**
+	 * For single-sheet formats (including CSV), override the worksheet name
+	 * @default "Sheet1"
+	 */
+	sheet?: string;
 
 	PRN?: boolean;
 }
 
-export interface SheetOption {
-	/**
-	 * Name of Worksheet (for single-sheet formats)
-	 * @default ''
-	 */
-	sheet?: string;
-}
 
 /** Options for write and writeFile */
-export interface WritingOptions extends CommonOptions, SheetOption {
+export interface WritingOptions extends CommonOptions {
 	/** Output data encoding */
-	type?: "base64" | "binary" | "buffer" | "file" | "array" | "string";
+	type?: 'base64' | 'binary' | 'buffer' | 'file' | 'array' | 'string';
 
 	/**
 	 * Generate Shared String Table
@@ -252,6 +280,9 @@ export interface WritingOptions extends CommonOptions, SheetOption {
 	 */
 	compression?: boolean;
 
+	/** Override theme XML when exporting to XLSX/XLSM/XLSB */
+	themeXLSX?: string;
+
 	/**
 	 * Suppress "number stored as text" errors in generated files
 	 * @default true
@@ -261,8 +292,37 @@ export interface WritingOptions extends CommonOptions, SheetOption {
 	/** Override workbook properties on save */
 	Props?: Properties;
 
+	/**
+	 * Desired codepage for legacy file formats
+	 *
+	 * This requires encoding support to be loaded.  It is automatically loaded
+	 * in `xlsx.full.min.js` and in CommonJS / Extendscript, but an extra step
+	 * is required in React / Angular / Webpack / ESM deployments.
+	 *
+	 * Check the relevant guide https://docs.sheetjs.com/docs/getting-started/
+	 */
+	codepage?: number;
+
 	/** Base64 encoding of NUMBERS base for exports */
 	numbers?: string;
+
+	/**
+	 * For single-sheet formats, export the specified worksheet.
+	 *
+	 * The property must be a string (sheet name) or number (`SheetNames` index).
+	 *
+	 * If this option is omitted, the first worksheet will be exported.
+	 */
+	sheet?: string | number;
+
+	/** Field Separator ("delimiter") for CSV / Text output */
+	FS?: string;
+
+	/** Record Separator ("row separator") for CSV / Text output */
+	RS?: string;
+
+	/** Skip certain validity checks (NOTE: generated files may not open in Excel) */
+	unsafe?: boolean;
 }
 
 /** Workbook Object */
@@ -285,6 +345,9 @@ export interface WorkBook {
 	Workbook?: WBProps;
 
 	vbaraw?: any;
+
+	/** Original file type (when parsed with `read` or `readFile`) */
+	bookType?: BookType;
 }
 
 export interface SheetProps {
@@ -509,25 +572,58 @@ export interface MarginInfo {
 	/** Footer bottom height (inches) */
 	footer?: number;
 }
-export type SheetType = "sheet" | "chart";
+export type SheetType = 'sheet' | 'chart';
 export type SheetKeys = string | MarginInfo | SheetType;
 /** General object representing a Sheet (worksheet or chartsheet) */
 export interface Sheet {
 	/**
-	 * Indexing with a cell address string maps to a cell object
+	 * Sparse-mode store cells with keys corresponding to A1-style address
+	 * Dense-mode  store cells in the '!data' key
 	 * Special keys start with '!'
 	 */
-	[cell: string]: CellObject | SheetKeys | any;
+	[cell: string]: CellObject | DenseSheetData | SheetKeys | any;
+
+	/**
+	 * Dense-mode worksheets store data in an array of arrays
+	 *
+	 * Cells are accessed with sheet['!data'][R][C] (where R and C are 0-indexed)
+	 */
+	'!data'?: DenseSheetData;
 
 	/** Sheet type */
-	"!type"?: SheetType;
+	'!type'?: SheetType;
 
-	/** Sheet Range */
-	"!ref"?: string;
+	/** Sheet Range (A1-style) */
+	'!ref'?: string;
 
 	/** Page Margins */
-	"!margins"?: MarginInfo;
+	'!margins'?: MarginInfo;
 }
+/** General object representing a dense Sheet (worksheet or chartsheet) */
+export interface DenseSheet extends Sheet {
+	/**
+	 * Special keys start with '!'
+	 * Dense-mode worksheets store data in the '!data' key
+	 */
+	[cell: string]: DenseSheetData | SheetKeys | any;
+
+	/**
+	 * Dense-mode worksheets store data in an array of arrays
+	 *
+	 * Cells are accessed with sheet['!data'][R][C] (where R and C are 0-indexed)
+	 */
+	'!data': DenseSheetData;
+}
+export type DenseSheetData = ((CellObject|undefined)[]|undefined)[];
+/** General object representing a sparse Sheet (worksheet or chartsheet) */
+export interface SparseSheet extends Sheet {
+	/**
+	 * Sparse-mode store cells with keys corresponding to A1-style address
+	 * Cells are accessed with sheet[addr]
+	 */
+	'!data': never;
+}
+
 
 /** AutoFilter properties */
 export interface AutoFilterInfo {
@@ -546,62 +642,41 @@ export interface WorkSheet extends Sheet {
 	[cell: string]: CellObject | WSKeys | any;
 
 	/** Column Info */
-	"!cols"?: ColInfo[];
+	'!cols'?: ColInfo[];
 
 	/** Row Info */
-	"!rows"?: RowInfo[];
+	'!rows'?: RowInfo[];
 
 	/** Merge Ranges */
-	"!merges"?: Range[];
+	'!merges'?: Range[];
 
 	/** Worksheet Protection info */
-	"!protect"?: ProtectInfo;
+	'!protect'?: ProtectInfo;
 
 	/** AutoFilter info */
-	"!autofilter"?: AutoFilterInfo;
+	'!autofilter'?: AutoFilterInfo;
 }
+/** Dense Worksheet Object */
+export interface DenseWorkSheet extends DenseSheet {}
 
 /**
  * Worksheet Object with CellObject type
  *
  * The normal Worksheet type uses indexer of type `any` -- this enforces CellObject
  */
-export interface StrictWS {
-	[addr: string]: CellObject;
-}
+export interface StrictWS { [addr: string]: CellObject; }
 
 /**
  * The Excel data type for a cell.
  * b Boolean, n Number, e error, s String, d Date, z Stub
  */
-export type ExcelDataType = "b" | "n" | "e" | "s" | "d" | "z";
+export type ExcelDataType = 'b' | 'n' | 'e' | 's' | 'd' | 'z';
 
 /**
  * Type of generated workbook
  * @default 'xlsx'
  */
-export type BookType =
-	| "xlsx"
-	| "xlsm"
-	| "xlsb"
-	| "xls"
-	| "xla"
-	| "biff8"
-	| "biff5"
-	| "biff2"
-	| "xlml"
-	| "ods"
-	| "fods"
-	| "csv"
-	| "txt"
-	| "sylk"
-	| "slk"
-	| "html"
-	| "dif"
-	| "rtf"
-	| "prn"
-	| "eth"
-	| "dbf";
+export type BookType = 'xlsx' | 'xlsm' | 'xlsb' | 'xls' | 'xla' | 'biff8' | 'biff5' | 'biff2' | 'xlml' | 'ods' | 'fods' | 'csv' | 'txt' | 'sylk' | 'slk' | 'html' | 'dif' | 'rtf' | 'prn' | 'eth' | 'dbf' | 'numbers';
 
 /** Comment element */
 export interface Comment {
@@ -649,6 +724,9 @@ export interface CellObject {
 
 	/** Range of enclosing array if formula is array formula (if applicable) */
 	F?: string;
+
+	/** If true, cell is a dynamic array formula (for supported file formats) */
+	D?: boolean;
 
 	/** Rich text encoding (if applicable) */
 	r?: any;
@@ -729,7 +807,7 @@ export interface Sheet2HTMLOpts {
 
 export interface Sheet2JSONOpts extends DateNFOption {
 	/** Output format */
-	header?: "A" | number | string[];
+    header?: "A"|number|string[];
 
 	/** Override worksheet range */
 	range?: any;
@@ -748,9 +826,35 @@ export interface Sheet2JSONOpts extends DateNFOption {
 
 	/** if true, return raw numbers; if false, return formatted numbers */
 	rawNumbers?: boolean;
+
+	/**
+	 * If true, return dates whose UTC interpretation is correct
+	 * By default, return dates whose local interpretation is correct
+	 *
+	 * @default false
+	 */
+	UTC?: boolean;
 }
 
-export interface AOA2SheetOpts extends CommonOptions, DateNFOption {
+export interface Sheet2FormulaOpts {
+	/**
+	 * If false, only export cells with formulae.
+	 * By default, synthetic formulae are generated for each cell.
+	 */
+	values?: boolean;
+}
+
+export interface UTCDateOption {
+	/**
+	 * If true, dates are interpreted using the UTC methods
+	 * By default, dates are interpreted in the local timezone
+	 *
+	 * @default false
+	 */
+	UTC?: boolean;
+}
+
+export interface AOA2SheetOpts extends CommonOptions, UTCDateOption, DateNFOption, DenseOption {
 	/**
 	 * Create cell objects for stub cells
 	 * @default false
@@ -760,7 +864,7 @@ export interface AOA2SheetOpts extends CommonOptions, DateNFOption {
 
 export interface SheetAOAOpts extends AOA2SheetOpts, OriginOption {}
 
-export interface JSON2SheetOpts extends CommonOptions, DateNFOption {
+export interface JSON2SheetOpts extends CommonOptions, UTCDateOption, DateNFOption, OriginOption, DenseOption {
 	/** Use specified column order */
 	header?: string[];
 
@@ -768,9 +872,7 @@ export interface JSON2SheetOpts extends CommonOptions, DateNFOption {
 	skipHeader?: boolean;
 }
 
-export interface SheetJSONOpts extends JSON2SheetOpts, OriginOption {}
-
-export interface Table2SheetOpts extends CommonOptions, DateNFOption, OriginOption, SheetOption {
+export interface Table2SheetOpts extends CommonOptions, DateNFOption, OriginOption {
 	/** If true, plaintext parsing will not parse values */
 	raw?: boolean;
 
@@ -782,6 +884,28 @@ export interface Table2SheetOpts extends CommonOptions, DateNFOption, OriginOpti
 
 	/** If true, hidden rows and cells will not be parsed */
 	display?: boolean;
+
+	/**
+	 * Override the worksheet name
+	 * @default "Sheet1"
+	 */
+	sheet?: string;
+
+	/**
+	 * If true, interpret date strings as if they are UTC.
+	 * By default, date strings are interpreted in the local timezone.
+	 *
+	 * @default false
+	 */
+	UTC?: boolean;
+}
+
+export interface Table2BookOpts extends Table2SheetOpts {
+	/**
+	 * Override the worksheet name
+	 * @default "Sheet1"
+	 */
+	sheet?: string;
 }
 
 /** General utilities */
@@ -797,8 +921,8 @@ export interface XLSX$Utils {
 	json_to_sheet(data: any[], opts?: JSON2SheetOpts): WorkSheet;
 
 	/** BROWSER ONLY! Converts a TABLE DOM element to a worksheet. */
-	table_to_sheet(data: any, opts?: Table2SheetOpts): WorkSheet;
-	table_to_book(data: any, opts?: Table2SheetOpts): WorkBook;
+    table_to_sheet(data: any,  opts?: Table2SheetOpts): WorkSheet;
+    table_to_book(data: any,  opts?: Table2BookOpts): WorkBook;
 	sheet_add_dom(ws: WorkSheet, data: any, opts?: Table2SheetOpts): WorkSheet;
 
 	/* --- Export Functions --- */
@@ -818,16 +942,7 @@ export interface XLSX$Utils {
 	sheet_to_html(worksheet: WorkSheet, options?: Sheet2HTMLOpts): string;
 
 	/** Generates a list of the formulae (with value fallbacks) */
-	sheet_to_formulae(worksheet: WorkSheet): string[];
-
-	/** Generates DIF */
-	sheet_to_dif(worksheet: WorkSheet, options?: Sheet2HTMLOpts): string;
-
-	/** Generates SYLK (Symbolic Link) */
-	sheet_to_slk(worksheet: WorkSheet, options?: Sheet2HTMLOpts): string;
-
-	/** Generates ETH */
-	sheet_to_eth(worksheet: WorkSheet, options?: Sheet2HTMLOpts): string;
+	sheet_to_formulae(worksheet: WorkSheet, options?: Sheet2FormulaOpts): string[];
 
 	/* --- Cell Address Utilities --- */
 
@@ -861,17 +976,20 @@ export interface XLSX$Utils {
 
 	/* --- General Utilities --- */
 
-	/** Creates a new workbook */
-	book_new(): WorkBook;
+	/** Create a new workbook */
+	book_new(ws?: WorkSheet, wsname?: string): WorkBook;
 
-	/** Append a worksheet to a workbook */
-	book_append_sheet(workbook: WorkBook, worksheet: WorkSheet, name?: string, roll?: boolean): void;
+	/** Create a new worksheet */
+	sheet_new(opts?: DenseOption): WorkSheet;
+
+	/** Append a worksheet to a workbook, returns new worksheet name */
+	book_append_sheet(workbook: WorkBook, worksheet: WorkSheet, name?: string, roll?: boolean): string;
 
 	/** Set sheet visibility (visible/hidden/very hidden) */
-	book_set_sheet_visibility(workbook: WorkBook, sheet: number | string, visibility: number): void;
+    book_set_sheet_visibility(workbook: WorkBook, sheet: number|string, visibility: number): void;
 
 	/** Set number format for a cell */
-	cell_set_number_format(cell: CellObject, fmt: string | number): CellObject;
+    cell_set_number_format(cell: CellObject, fmt: string|number): CellObject;
 
 	/** Set hyperlink for a cell */
 	cell_set_hyperlink(cell: CellObject, target: string, tooltip?: string): CellObject;
@@ -883,15 +1001,16 @@ export interface XLSX$Utils {
 	cell_add_comment(cell: CellObject, text: string, author?: string): void;
 
 	/** Assign an Array Formula to a range */
-	sheet_set_array_formula(ws: WorkSheet, range: Range | string, formula: string, dynamic?: boolean): WorkSheet;
+    sheet_set_array_formula(ws: WorkSheet, range: Range|string, formula: string, dynamic?: boolean): WorkSheet;
 
 	/** Add an array of arrays of JS data to a worksheet */
 	sheet_add_aoa<T>(ws: WorkSheet, data: T[][], opts?: SheetAOAOpts): WorkSheet;
 	sheet_add_aoa(ws: WorkSheet, data: any[][], opts?: SheetAOAOpts): WorkSheet;
 
 	/** Add an array of JS objects to a worksheet */
-	sheet_add_json(ws: WorkSheet, data: any[], opts?: SheetJSONOpts): WorkSheet;
-	sheet_add_json<T>(ws: WorkSheet, data: T[], opts?: SheetJSONOpts): WorkSheet;
+	sheet_add_json(ws: WorkSheet, data: any[], opts?: JSON2SheetOpts): WorkSheet;
+	sheet_add_json<T>(ws: WorkSheet, data: T[], opts?: JSON2SheetOpts): WorkSheet;
+
 
 	consts: XLSX$Consts;
 }
@@ -909,16 +1028,40 @@ export interface XLSX$Consts {
 	SHEET_VERYHIDDEN: 2;
 }
 
-/** NODE ONLY! these return Readable Streams */
+export interface StrideOption {
+	/** Number of rows to write per step */
+	stride?: number;
+}
+
+export interface XLMLStreamOpts extends WritingOptions, StrideOption {}
+
+/**
+ * Streaming write methods
+ *
+ * These methods are directly compatible with NodeJS `stream.Readable` API
+ *
+ * Web Streams (modern browsers) can play nice with NodeJS streams. See the Web
+ * Demo at https://docs.sheetjs.com/docs/demos/bigdata/worker#streaming-write
+ *
+ * NOTE: These methods are not included in the `xlsx.mini.min.js` build!
+ */
 export interface StreamUtils {
+	/** Set `Readable` (for environments that do not support NodeJS Streams) */
+	set_readable(Readable: any): void;
+
+	/* --- Worksheet writers --- */
+
 	/** CSV output stream, generate one line at a time */
 	to_csv(sheet: WorkSheet, opts?: Sheet2CSVOpts): any;
 	/** HTML output stream, generate one line at a time */
 	to_html(sheet: WorkSheet, opts?: Sheet2HTMLOpts): any;
 	/** JSON object stream, generate one row at a time */
 	to_json(sheet: WorkSheet, opts?: Sheet2JSONOpts): any;
-	/** Set `Readable` (internal) */
-	set_readable(Readable: any): void;
+
+	/* --- Workbook writers --- */
+
+	/** XLML output string stream (bookType `xlml`) */
+	to_xlml(data: WorkBook, opts?: XLMLStreamOpts): any;
 }
 
 /** Style-Color object [xlsx-js-style] */

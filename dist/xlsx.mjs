@@ -1,4 +1,4 @@
-/* xlsx-js-style 1.2.3 @ 2024-11-16T05:34:48.705Z */
+/* xlsx-js-style 1.2.4 @ 2024-11-24T20:00:00.383Z */
 /*! xlsx.js (C) 2013-present SheetJS -- http://sheetjs.com */
 /**
  * This project is a fork of [gitbrent/xlsx-js-style](https://github.com/gitbrent/xlsx-js-style), which is a fork of [SheetJS/sheetjs](https://git.sheetjs.com/sheetjs/sheetjs/) combined with code from:
@@ -11,7 +11,7 @@
 /*global process:false, Buffer:false, ArrayBuffer:false, DataView:false, Deno:false */
 var XLSX = {};
 XLSX.version = '0.20.3';
-XLSX.style_version = '1.2.3'; /* xlsx-js-style */
+XLSX.style_version = '1.2.4'; /* xlsx-js-style */
 var current_codepage = 1200, current_ansi = 1252;
 /*global cptable:true, window */
 var $cptable;

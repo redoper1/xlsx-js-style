@@ -1,6 +1,6 @@
 {
 	"name": "xlsx-js-style-demos-node",
-	"version": "1.2.3",
+	"version": "1.2.4",
 	"author": {
 		"name": "David Rychlý",
 		"url": "https://github.com/redoper1/"
@@ -20,6 +20,6 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"xlsx-js-style": "^1.2.3"
+		"xlsx-js-style": "^1.2.4"
 	}
 }

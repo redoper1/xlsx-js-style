@@ -78,8 +78,13 @@ gulp.task("nodeDemo", (done) => {
 			.pipe(gulp.dest("./demos/node/node_modules/xlsx-js-style/"));
 	};
 
+	const copyTypes = () => {
+		return gulp.src("./types/*.d.ts")
+			.pipe(gulp.dest("./demos/node/node_modules/xlsx-js-style/types"));
+	};
+
 	// Running both copy tasks in parallel
-	gulp.parallel(copyPackageJS, copyESMPackageJS, copyCpexcelJS, copyPackageJson)();
+	gulp.parallel(copyPackageJS, copyESMPackageJS, copyCpexcelJS, copyPackageJson, copyTypes)();
 	done();
 });
 
@@ -104,8 +109,13 @@ gulp.task("test", (done) => {
 			.pipe(gulp.dest("./tests/node_modules/xlsx-js-style/"));
 	};
 
+	const copyTypes = () => {
+		return gulp.src("./types/*.d.ts")
+			.pipe(gulp.dest("./tests/node_modules/xlsx-js-style/types"));
+	};
+
 	// Running both copy tasks in parallel
-	gulp.parallel(copyPackageJS, copyESMPackageJS, copyCpexcelJS, copyPackageJson)();
+	gulp.parallel(copyPackageJS, copyESMPackageJS, copyCpexcelJS, copyPackageJson, copyTypes)();
 	done();
 });
 

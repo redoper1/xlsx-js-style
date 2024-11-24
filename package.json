@@ -1,6 +1,6 @@
 {
 	"name": "@redoper1/xlsx-js-style",
-	"version": "1.2.3",
+	"version": "1.2.4",
 	"author": "redoper1",
 	"description": "SheetJS Spreadsheet Community Edition plus Basic Cell Styles forked from gitbrent/xlsx-js-style",
 	"homepage": "https://github.com/redoper1/xlsx-js-style/",
@@ -38,47 +38,58 @@
 	"exports": {
 		".": {
 			"import": "./dist/xlsx.min.mjs",
-			"require": "./dist/xlsx.min.cjs"
+			"require": "./dist/xlsx.min.cjs",
+			"types": "./types/index.d.ts"
 		},
 		"./xlsx.min.js": {
 			"import": "./dist/xlsx.min.mjs",
-			"require": "./dist/xlsx.min.cjs"
+			"require": "./dist/xlsx.min.cjs",
+			"types": "./types/index.d.ts"
 		},
 		"./xlsx.min.cjs": {
 			"import": "./dist/xlsx.min.cjs",
-			"require": "./dist/xlsx.min.cjs"
+			"require": "./dist/xlsx.min.cjs",
+			"types": "./types/index.d.ts"
 		},
 		"./dist/xlsx.min.js": {
 			"import": "./dist/xlsx.min.mjs",
-			"require": "./dist/xlsx.min.cjs"
+			"require": "./dist/xlsx.min.cjs",
+			"types": "./types/index.d.ts"
 		},
 		"./dist/xlsx.min.cjs": {
 			"import": "./dist/xlsx.min.cjs",
-			"require": "./dist/xlsx.min.cjs"
+			"require": "./dist/xlsx.min.cjs",
+			"types": "./types/index.d.ts"
 		},
 		"./dist/xlsx.min.mjs": {
 			"import": "./dist/xlsx.min.mjs",
-			"require": "./dist/xlsx.min.cjs"
+			"require": "./dist/xlsx.min.cjs",
+			"types": "./types/index.d.ts"
 		},
 		"./xlsx.js": {
 			"import": "./dist/xlsx.mjs",
-			"require": "./dist/xlsx.cjs"
+			"require": "./dist/xlsx.cjs",
+			"types": "./types/index.d.ts"
 		},
 		"./xlsx.cjs": {
 			"import": "./dist/xlsx.cjs",
-			"require": "./dist/xlsx.cjs"
+			"require": "./dist/xlsx.cjs",
+			"types": "./types/index.d.ts"
 		},
 		"./dist/xlsx.js": {
 			"import": "./dist/xlsx.mjs",
-			"require": "./dist/xlsx.cjs"
+			"require": "./dist/xlsx.cjs",
+			"types": "./types/index.d.ts"
 		},
 		"./dist/xlsx.cjs": {
 			"import": "./dist/xlsx.cjs",
-			"require": "./dist/xlsx.cjs"
+			"require": "./dist/xlsx.cjs",
+			"types": "./types/index.d.ts"
 		},
 		"./dist/xlsx.mjs": {
 			"import": "./dist/xlsx.mjs",
-			"require": "./dist/xlsx.cjs"
+			"require": "./dist/xlsx.cjs",
+			"types": "./types/index.d.ts"
 		}
 	},
 	"browser": {

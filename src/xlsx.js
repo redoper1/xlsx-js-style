@@ -11,7 +11,7 @@
 var XLSX = {};
 function make_xlsx_lib(XLSX) {
 	XLSX.version = '0.20.3';
-	XLSX.style_version = '1.2.3'; /* xlsx-js-style */
+	XLSX.style_version = '1.2.4'; /* xlsx-js-style */
 	var current_codepage = 1200, current_ansi = 1252;
 	/*global cptable:true, window */
 	var $cptable;
