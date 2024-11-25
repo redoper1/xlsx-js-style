@@ -8,14 +8,23 @@ const gulp = require("gulp"),
 	insert = require("gulp-insert"),
 	replace = require("gulp-replace"),
 	source = require("gulp-sourcemaps"),
-	uglify = require("gulp-uglify"),
 	terser = require("gulp-terser");
+
+const terserConfig = {
+	compress: true,
+	output: {
+		comments: /^!/
+	}
+}
 
 gulp.task("min", () => {
 	return gulp
 		.src(["./src/xlsx.js"])
 		.pipe(concat("xlsx.min.cjs"))
-		.pipe(uglify())
+		.pipe(terser({
+			...terserConfig, 
+			module: false
+		}))
 		.pipe(replace("./dist/cpexcel.js", "./cpexcel.js"))
 		.pipe(insert.prepend("/* xlsx-js-style " + pkg.version + " @ " + new Date().toISOString() + " */\n"))
 		.pipe(source.init())
@@ -28,7 +37,7 @@ gulp.task("min-esm", () => {
 	return gulp
 		.src(["./src/xlsx.mjs"])
 		.pipe(concat("xlsx.min.mjs"))
-		.pipe(terser())
+		.pipe(terser(terserConfig))
 		.pipe(replace("./dist/cpexcel.js", "./cpexcel.js"))
 		.pipe(insert.prepend("/* xlsx-js-style " + pkg.version + " @ " + new Date().toISOString() + " */\n"))
 		.pipe(source.init())
