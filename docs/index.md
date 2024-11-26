@@ -115,7 +115,7 @@ top-level attributes: `alignment`, `border`, `fill`, `font` and `numFmt`.
 
 Borders for merged areas are specified for each cell within the merged area. For example, to apply a box border to a merged area of 3x3 cells, border styles would need to be specified for eight different cells:
 
-- left borders for the three cells on the left,
+- left borders for the three cells on the left
 - right borders for the cells on the right
 - top borders for the cells on the top
 - bottom borders for the cells on the left
