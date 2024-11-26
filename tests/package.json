@@ -1,0 +1,23 @@
+{
+  "name": "xlsx-js-style-tests",
+  "version": "1.2.4",
+  "author": {
+    "name": "David Rychlý",
+    "url": "https://github.com/redoper1/"
+  },
+  "type": "module",
+  "description": "Create Excel spreadsheets with basic styling options using JavaScript forked from gitbrent/xlsx-js-style",
+  "homepage": "https://gitbrent.github.io/xlsx-js-style/",
+  "scripts": {
+    "test": "mocha core.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/redoper1/xlsx-js-style.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@redoper1/xlsx-js-style": "^1.2.4",
+    "mocha": "^10.8.2"
+  }
+}

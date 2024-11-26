@@ -20,6 +20,6 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"xlsx-js-style": "^1.2.4"
+		"@redoper1/xlsx-js-style": "^1.2.4"
 	}
 }
