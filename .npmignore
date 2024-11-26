@@ -1,5 +1,4 @@
 test_files/
-packages/
 .github/
 tests/files/
 demos/
@@ -53,7 +52,4 @@ test.js
 .gitmodules
 .travis.yml
 .flowconfig
-*.flow.js
-bits/
-docbits/
 tests/

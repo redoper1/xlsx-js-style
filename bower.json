@@ -4,7 +4,6 @@
   "main": "dist/xlsx.min.cjs",
   "ignore": [
     "bin",
-    "bits",
     "misc",
     "**/.*"
   ],
